@@ -6,7 +6,8 @@
 #include <iostream>
 #include <limits>
 
-#include "RandomAccess.hpp"
+#include "random_access_iterator.hpp"
+#include "reverse_iterator.hpp"
 #include "utils.hpp"
 
 
@@ -27,14 +28,15 @@ namespace ft
             typedef typename allocator_type::pointer                            pointer;
             typedef typename allocator_type::const_pointer                      const_pointer;
             
-            typedef long int                                                    difference_type;
+            typedef typename std::ptrdiff_t                                     difference_type;
             typedef size_t                                                      size_type;
 
             //Iterator
-			typedef RandomAccess<value_type, false>                             iterator;
-			typedef RandomAccess<value_type, true>                              const_iterator;
-			typedef	RevRandomAccess<value_type, false>                          reverse_iterator;
-			typedef RevRandomAccess<value_type, true>                           const_reverse_iterator;
+            typedef ft::random_access_iterator<value_type>                      iterator;
+			typedef ft::random_access_iterator<const value_type>                const_iterator;
+			typedef	ft::reverse_iterator<iterator>                              reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>                        const_reverse_iterator;
+
   
 
         private:
@@ -67,7 +69,7 @@ namespace ft
             iterator begin() { return iterator(this->_data); }
             const_iterator begin() const { return const_iterator(this->_data); }
             iterator end() { return iterator(&this->_data[this->_size]); }
-            const_iterator end() const  { return const_iterator(&this->_data[this->_size]); }
+            const_iterator end() const { return const_iterator(&this->_data[this->_size]); }
 
             reverse_iterator rbegin() { return reverse_iterator(&this->_data[this->_size]); }
             const_reverse_iterator rbegin() const { return const_reverse_iterator(&this->_data[this->_size]); }
