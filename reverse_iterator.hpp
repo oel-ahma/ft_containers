@@ -1,6 +1,7 @@
 #ifndef _REVERSE_ITERATOR_HPP
 #define _REVERSE_ITERATOR_HPP
 
+#include "utils.hpp"
 
 namespace ft
 {
