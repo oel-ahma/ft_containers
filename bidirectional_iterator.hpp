@@ -1,7 +1,8 @@
 #ifndef _BIDIRECTIONAL_ITERATOR_HPP
 #define _BIDIRECTIONAL_ITERATOR_HPP
 
-#include "utils.hpp"
+//#include "utils.hpp"
+#include "/mnt/nfs/homes/oel-ahma/Documents/ft_containers/corrections/cont-al/utils.hpp"
 
 namespace ft
 {
@@ -90,7 +91,10 @@ namespace ft
                 return (tmp);
             } 
 
-            operator bidirectional_iterator<const T, true>() { return (bidirectional_iterator<const T, true>(_M_node)); }
+            operator bidirectional_iterator<const T, true>() 
+            { 
+                return (bidirectional_iterator<const T, true>(_M_node)); 
+            }
 
     };
 }

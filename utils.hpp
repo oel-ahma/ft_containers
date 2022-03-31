@@ -112,7 +112,7 @@ namespace ft
 		first_type	first;
 		second_type	second;
 
-		pair() {}
+		pair() : first(), second() {}
 		pair( const T1& x, const T2& y ) : first(x), second(y) {}
 		template< class U1, class U2 >
 		pair( const pair<U1, U2>& p ) : first(p.first), second(p.second) {}
@@ -160,7 +160,7 @@ namespace ft
 	bool operator>=(const pair<T1,T2>& lhs, const pair<T1,T2>& rhs) { return (!(lhs < rhs)); }
 
 	template <class T> 
-	struct less : binary_function<T,T,bool> 
+	struct less : std::binary_function<T,T,bool> 
 	{
 		bool operator() (const T& x, const T& y) const 
 		{

@@ -1,8 +1,8 @@
-#ifndef _MY_VECTOR_HPP
-#define _MY_VECTOR_HPP
+#ifndef _MY_vector_HPP
+#define _MY_vector_HPP
 
 
-#include <vector>
+//#include <vector>
 #include <iostream>
 #include <limits>
 
@@ -55,6 +55,8 @@ namespace ft
 			{
 				_data = _alloc.allocate(0);
 				assign(first, last);
+                if (this->_capacity > this->_size + 1)
+                    this->_capacity = this->_size;
 			};
             
             vector(const vector& x); //copy constructor
@@ -111,6 +113,8 @@ namespace ft
                 this->clear();
                 for (InputIterator it = first; it != last; ++it)
                     this->push_back(*it);
+                if (this->_capacity < this->_size + 1)
+                    this->_capacity = this->_size;
             }
             void assign(size_type n, const value_type& val);
             void push_back(const value_type& val);
@@ -128,6 +132,8 @@ namespace ft
 
                 for (iterator it = tmp.begin(); it != tmp.end(); ++it)
                     this->push_back(*it);
+                if (this->_capacity > this->_size + 1)
+                    this->_capacity = this->_size;
             }
             iterator erase(iterator position);
             iterator erase(iterator first, iterator last);
@@ -135,7 +141,7 @@ namespace ft
             void clear();
 
             private:
-                /* Reallocate Vector */
+                /* Reallocate vector */
                 void _reallocVec(size_type newCapacity)
                 {
                     pointer tmp = this->_alloc.allocate(newCapacity);
@@ -239,22 +245,6 @@ namespace ft
         while (this->_size)
             this->pop_back();
     }
-/*
-    template <class T, class Alloc>
-    void vector<T, Alloc>::assign(iterator first, iterator last)
-    {
-        this->clear();
-        for (iterator it = first; it != last; ++it)
-            this->push_back(*it);
-    }
-
-    template <class T, class Alloc>
-    void vector<T, Alloc>::assign(const_iterator first, const_iterator last)
-    {
-        this->clear();
-        for (const_iterator it = first; it != last; ++it)
-            this->push_back(*it);
-    }*/
 
     template <class T, class Alloc>
     void vector<T, Alloc>::assign(size_type n, const value_type& val)
@@ -262,6 +252,8 @@ namespace ft
         this->clear();
         for (size_t i = 0; i < n; i++)
             this->push_back(val);
+        if (this->_capacity > this->_size + 1)
+            this->_capacity = this->_size;
     }
 
     template <class T, class Alloc>
@@ -270,11 +262,12 @@ namespace ft
         vector<T, Alloc> tmp(position, this->end());
 
         this->_size -= this->end() - position;
-
         for (size_type i = 0; i < n; i++)
             this->push_back(val);
         for (iterator it = tmp.begin(); it != tmp.end(); ++it)
             this->push_back(*it);
+        if (this->_capacity > this->_size + 1)
+            this->_capacity = this->_size;
     }
 
     template <class T, class Alloc>
@@ -284,36 +277,10 @@ namespace ft
         if (position == this->end())
             n = this->_size;
         this->insert(position, 1, val);
+        if (this->_capacity > this->_size + 1)
+            this->_capacity = this->_size;
         return (iterator(&this->_data[n]));
     }
-/*
-    template <class T, class Alloc>
-    void vector<T, Alloc>::insert(iterator position, iterator first, iterator last)
-    {
-        vector<T, Alloc> tmp(position, this->end());
-
-        this->_size -= (this->end() - position);
-        for (iterator it = first; it != last; ++it)
-            this->push_back(*it);
-
-        for (iterator it = tmp.begin(); it != tmp.end(); ++it)
-            this->push_back(*it);
-    }
-
-    template <class T, class Alloc>
-    void vector<T, Alloc>::insert(iterator position, const_iterator first, const_iterator last)
-    {
-        vector<T, Alloc> tmp(position, this->end());
-
-        this->_size -= (this->end() - position);
-
-        for (const_iterator it = first; it != last; ++it)
-            this->push_back(*it);
-
-        for (iterator it = tmp.begin(); it != tmp.end(); ++it)
-            this->push_back(*it);
-    }*/
-
 
     template < class T, class Alloc >
     typename vector<T, Alloc>::iterator vector<T, Alloc>::erase(iterator position)
@@ -344,7 +311,6 @@ namespace ft
     template < class T, class Alloc >
     void vector<T, Alloc>::swap (vector& x)
     {
-
         pointer tmp;
         tmp = this->_data;
         this->_data = x._data;
@@ -363,7 +329,7 @@ namespace ft
         allocator_type   tmpD;
         tmpD = this->_alloc;
         this->_alloc = x._alloc;
-        x._alloc = tmpD;         
+        x._alloc = tmpD; 
     }
 
     /* non-member operator overload */
