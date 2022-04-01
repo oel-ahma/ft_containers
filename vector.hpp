@@ -66,7 +66,12 @@ namespace ft
 
             /* Operator= Overload */
             vector& operator=(const vector& x);
-        
+
+            allocator_type get_allocator() const
+            {
+                return _alloc;
+            }
+
             /* iterators */
             iterator begin() { return iterator(this->_data); }
             const_iterator begin() const { return const_iterator(this->_data); }
@@ -255,6 +260,8 @@ namespace ft
         if (this->_capacity > this->_size + 1)
             this->_capacity = this->_size;
     }
+
+
 
     template <class T, class Alloc>
     void vector<T, Alloc>::insert(iterator position, size_type n, const value_type& val)
